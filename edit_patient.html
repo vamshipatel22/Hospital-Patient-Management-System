@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>Edit Patient</h3>
+<form method="post" action="{{ url_for('edit_patient', id=patient.id) }}">
+  <div class="mb-3">
+    <label class="form-label">Name *</label>
+    <input class="form-control" name="name" value="{{ patient.name }}" required>
+  </div>
+  <div class="row">
+    <div class="col-md-2 mb-3">
+      <label class="form-label">Age</label>
+      <input class="form-control" name="age" type="number" min="0" value="{{ patient.age or '' }}">
+    </div>
+    <div class="col-md-3 mb-3">
+      <label class="form-label">Gender</label>
+      <select class="form-select" name="gender">
+        <option value="" {% if not patient.gender %}selected{% endif %}>—</option>
+        <option {% if patient.gender=='Male' %}selected{% endif %}>Male</option>
+        <option {% if patient.gender=='Female' %}selected{% endif %}>Female</option>
+        <option {% if patient.gender=='Other' %}selected{% endif %}>Other</option>
+      </select>
+    </div>
+    <div class="col-md-7 mb-3">
+      <label class="form-label">Contact</label>
+      <input class="form-control" name="contact" value="{{ patient.contact or '' }}">
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Address</label>
+    <input class="form-control" name="address" value="{{ patient.address or '' }}">
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Diagnosis</label>
+    <input class="form-control" name="diagnosis" value="{{ patient.diagnosis or '' }}">
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Notes</label>
+    <textarea class="form-control" name="notes" rows="3">{{ patient.notes or '' }}</textarea>
+  </div>
+
+  <button class="btn btn-primary" type="submit">Save Changes</button>
+  <a class="btn btn-secondary" href="{{ url_for('index') }}">Cancel</a>
+</form>
+{% endblock %}
